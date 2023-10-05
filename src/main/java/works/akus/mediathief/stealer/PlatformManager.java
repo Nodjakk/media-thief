@@ -1,10 +1,12 @@
 package works.akus.mediathief.stealer;
 
+import org.springframework.stereotype.Controller;
 import works.akus.mediathief.utils.UrlUtils;
 
 import java.util.Arrays;
 import java.util.List;
 
+@Controller
 public class PlatformManager {
 
     public static PlatformManager i;

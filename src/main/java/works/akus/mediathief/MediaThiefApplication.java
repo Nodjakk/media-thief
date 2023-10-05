@@ -8,8 +8,6 @@ import works.akus.mediathief.stealer.PlatformManager;
 public class MediaThiefApplication {
 
 	public static void main(String[] args) {
-		new PlatformManager();
-
 		SpringApplication.run(MediaThiefApplication.class, args);
 	}
 
