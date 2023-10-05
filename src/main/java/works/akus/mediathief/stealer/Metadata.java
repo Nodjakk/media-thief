@@ -10,5 +10,6 @@ public class Metadata {
     int duration;
     String name;
     String author;
+    String image;
 
 }

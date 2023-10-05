@@ -42,7 +42,8 @@ public class YoutubePlatform implements PlatformBase {
         return new Metadata(
                 details.lengthSeconds(),
                 details.title(),
-                details.author()
+                details.author(),
+                details.thumbnails().get(0)
         );
     }
 
