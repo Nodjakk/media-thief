@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>Media Thief</title>
+	</head>
+	<body>
+		<h1>введите ссфлку</h1>
+		<form method="POST">
+			<div>
+				<input name="url" id="url" th:object:"${link.url}"/>
+				<button> да </button>
+			</div>
+		</form>
+		<div th:object="${link.meta}">
+			<h3 th:text="${link.url}"></h3>
+			<h3 th:text="*{duration}"></h3>
+			<h3 th:text="*{name}"></h3>
+			<h3 th:text="*{author}"></h3>
+		</div>
+	</body>
+</html>
