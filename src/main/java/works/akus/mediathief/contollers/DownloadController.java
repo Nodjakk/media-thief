@@ -1,6 +1,7 @@
 package works.akus.mediathief.contollers;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,16 +14,26 @@ import works.akus.mediathief.stealer.PlatformManager;
 @RequestMapping("/")
 public class DownloadController {
 
+	@ModelAttribute
+	public void createFields(Model model) {
+		model.addAttribute("duration", "");
+		model.addAttribute("name", "");
+		model.addAttribute("author", "");
+	}
+	
 	@ModelAttribute(name = "link")
 	public Link getLink() {
 		return new Link();
 	}
 
 	@PostMapping
-	public String processLink(Link link) {
+	public String processLink(Link link, Model model) {
 		if (link.getUrl().isEmpty())
 			return "index";
 		link.setMeta(PlatformManager.i.getMetadata(link.getUrl()));
+		model.addAttribute("duration", link.getMeta().getDuration());
+		model.addAttribute("name", link.getMeta().getName());
+		model.addAttribute("author", link.getMeta().getAuthor());
 		return "index";
 	}
 
