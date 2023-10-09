@@ -21,6 +21,10 @@ public class PlatformManager {
         return getPlatform(url).getMetadata(url);
     }
 
+    public void download(String url, DownloadTask task){
+        getPlatform(url).download(url, task);
+    }
+
     public PlatformBase getPlatform(String url){
         String domain = UrlUtils.getDomain(url);
 

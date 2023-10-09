@@ -1,15 +1,17 @@
 package works.akus.mediathief.stealer;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 
-@AllArgsConstructor
-@Getter
+import java.util.List;
+
+@Data
 public class Metadata {
 
-    int duration;
-    String name;
-    String author;
-    String image;
+    final int duration;
+    final String name;
+    final String author;
+    final String image;
 
 }
