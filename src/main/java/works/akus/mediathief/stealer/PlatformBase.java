@@ -1,8 +1,6 @@
 package works.akus.mediathief.stealer;
 
-import lombok.AllArgsConstructor;
-
-import java.util.concurrent.CompletableFuture;
+import java.io.File;
 
 
 public interface PlatformBase {
@@ -10,6 +8,8 @@ public interface PlatformBase {
     Metadata getMetadata(String UrlOrId);
 
     void download(String videoIdOrUrl, DownloadTask task);
+
+    File downloadSync(String videoIdOrUrl);
 
     String getId(String url);
 

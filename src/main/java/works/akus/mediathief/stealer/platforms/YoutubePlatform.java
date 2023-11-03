@@ -9,18 +9,15 @@ import com.github.kiulian.downloader.downloader.response.Response;
 import com.github.kiulian.downloader.model.videos.VideoDetails;
 import com.github.kiulian.downloader.model.videos.VideoInfo;
 import com.github.kiulian.downloader.model.videos.formats.Format;
-import org.springframework.scheduling.config.Task;
 import works.akus.mediathief.stealer.*;
 import works.akus.mediathief.utils.TextUtils;
 import works.akus.mediathief.utils.UrlUtils;
 
 import java.io.File;
-import java.text.Normalizer;
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.regex.Pattern;
 
 @PlatformInitializer(
         name = "Youtube",
@@ -96,6 +93,9 @@ public class YoutubePlatform implements PlatformBase {
     }
 
     File videoDirectory = new File("download/youtube");
+
+
+
     @Override
     public void download(String videoIdOrUrl, DownloadTask task){
         String videoId = getVideoId(videoIdOrUrl);
@@ -130,6 +130,22 @@ public class YoutubePlatform implements PlatformBase {
                 .renameTo(TextUtils.transliterate(info.details().title()))
                 .async();
         downloader.downloadVideoFile(request);
+    }
+
+    @Override
+    public File downloadSync(String videoIdOrUrl) {
+        String videoId = getVideoId(videoIdOrUrl);
+        VideoInfo info = videoInfoBuffer.get(videoId);
+        if(info == null) {
+            getMetadata(videoId);
+            info = videoInfoBuffer.get(videoId);
+        }
+
+        Format format = info.bestVideoWithAudioFormat();
+
+        RequestVideoFileDownload request = new RequestVideoFileDownload(format).saveTo(videoDirectory)
+                .renameTo(TextUtils.transliterate(info.details().title()));
+        return downloader.downloadVideoFile(request).data();
     }
 
     @Override

@@ -8,6 +8,7 @@ public class MediaThiefApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(MediaThiefApplication.class, args);
+
 	}
 
 }

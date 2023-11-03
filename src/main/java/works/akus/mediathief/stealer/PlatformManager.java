@@ -24,6 +24,9 @@ public class PlatformManager {
     public void download(String url, DownloadTask task){
         getPlatform(url).download(url, task);
     }
+    public void downloadSync(String url){
+        getPlatform(url).downloadSync(url);
+    }
 
     public PlatformBase getPlatform(String url){
         String domain = UrlUtils.getDomain(url);
