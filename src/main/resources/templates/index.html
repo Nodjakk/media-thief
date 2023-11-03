@@ -1,22 +1,46 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org">
-	<head>
-		<title>Media Thief</title>
-	</head>
-	<body>
-		<h1>введите ссфлку</h1>
-		<form method="POST">
-			<div>
-				<input name="url" id="url" th:object:"${link.url}"/>
-				<button> да </button>
-			</div>
-		</form>
-		<div>
-			<h3 th:text="${link.url}"></h3>
-			<h3 th:text="${duration}"></h3>
-			<h3 th:text="${name}"></h3>
-			<h3 th:text="${author}"></h3>
+<head>
+<title>Media-Thief</title>
+<link href="styles/index.css" rel="stylesheet" type="text/css" />
+<script src="/scripts/timeFormat.js" defer></script>
+</head>
+<body>
+	<div class="header">
+		<p>Media-Thief</p>
+		<div class="divider1"></div>
+		<p class="subheader">Let's steal some media</p>
+	</div>
+
+	<form method="GET">
+		<div class="url-selector">
+			<input class="selector-input" name="url" id="url"
+				placeholder="Input the Youtube/Spotify Link" th:value="${url}" />
+			<button class="button-complete" onclick="a();">Complete</button>
 		</div>
-	</body>
+	</form>
+
+	<div class="divider2"
+		th:classappend="${contentInactive} ? '--disabled'"></div>
+
+	<div class="content" th:classappend="${contentInactive} ? '--disabled'">
+		<div class="img-cover">
+			<img th:src="${img}" class="image" />
+		</div>
+		<div class="content-info">
+			<p th:text="${name}" class="video-name"></p>
+			<p th:text="${author}" class="video-author"></p>
+			<p th:text="${duration}" class="video-duration"></p>
+		</div>
+		<form method="post">
+			<button class="button-steal" id="vert">
+				S<br />t<br />e<br />a<br />l
+			</button>
+		</form>
+	</div>
+
+	<div class="divider2"
+		th:classappend="${contentInactive} ? '--disabled'"></div>
+</body>
 </html>

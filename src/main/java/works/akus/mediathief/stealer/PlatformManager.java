@@ -1,10 +1,12 @@
 package works.akus.mediathief.stealer;
 
-import org.springframework.stereotype.Controller;
-import works.akus.mediathief.utils.UrlUtils;
-
+import java.io.File;
 import java.util.Arrays;
 import java.util.List;
+
+import org.springframework.stereotype.Controller;
+
+import works.akus.mediathief.utils.UrlUtils;
 
 @Controller
 public class PlatformManager {
@@ -24,8 +26,8 @@ public class PlatformManager {
     public void download(String url, DownloadTask task){
         getPlatform(url).download(url, task);
     }
-    public void downloadSync(String url){
-        getPlatform(url).downloadSync(url);
+    public File downloadSync(String url){
+        return getPlatform(url).downloadSync(url);
     }
 
     public PlatformBase getPlatform(String url){

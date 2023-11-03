@@ -1,12 +1,11 @@
 package works.akus.mediathief.stealer;
 
-import org.reflections.Reflections;
-
-
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+
+import org.reflections.Reflections;
 
 public class ManagerProcessor {
 

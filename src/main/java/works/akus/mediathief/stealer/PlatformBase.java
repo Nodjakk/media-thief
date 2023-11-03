@@ -2,7 +2,6 @@ package works.akus.mediathief.stealer;
 
 import java.io.File;
 
-
 public interface PlatformBase {
 
     Metadata getMetadata(String UrlOrId);

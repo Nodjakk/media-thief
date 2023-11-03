@@ -1,5 +1,11 @@
 package works.akus.mediathief.stealer.platforms;
 
+import java.io.File;
+import java.util.HashMap;
+import java.util.Objects;
+import java.util.Timer;
+import java.util.TimerTask;
+
 import com.github.kiulian.downloader.Config;
 import com.github.kiulian.downloader.YoutubeDownloader;
 import com.github.kiulian.downloader.downloader.YoutubeProgressCallback;
@@ -9,15 +15,13 @@ import com.github.kiulian.downloader.downloader.response.Response;
 import com.github.kiulian.downloader.model.videos.VideoDetails;
 import com.github.kiulian.downloader.model.videos.VideoInfo;
 import com.github.kiulian.downloader.model.videos.formats.Format;
-import works.akus.mediathief.stealer.*;
+
+import works.akus.mediathief.stealer.DownloadTask;
+import works.akus.mediathief.stealer.Metadata;
+import works.akus.mediathief.stealer.PlatformBase;
+import works.akus.mediathief.stealer.PlatformInitializer;
 import works.akus.mediathief.utils.TextUtils;
 import works.akus.mediathief.utils.UrlUtils;
-
-import java.io.File;
-import java.util.HashMap;
-import java.util.Objects;
-import java.util.Timer;
-import java.util.TimerTask;
 
 @PlatformInitializer(
         name = "Youtube",
@@ -56,7 +60,7 @@ public class YoutubePlatform implements PlatformBase {
                 details.lengthSeconds(),
                 details.title(),
                 details.author(),
-                details.thumbnails().get(0)
+                details.thumbnails().get(details.thumbnails().size()-1)
         );
 
         videoInfoBuffer.put(videoId, video);
