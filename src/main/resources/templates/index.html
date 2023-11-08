@@ -4,7 +4,9 @@
 <head>
 <title>Media-Thief</title>
 <link href="styles/index.css" rel="stylesheet" type="text/css" />
+<script src="/scripts/jquery-3.7.1.min.js" defer></script>
 <script src="/scripts/timeFormat.js" defer></script>
+<script src="/scripts/contentDownload.js" defer></script>
 </head>
 <body>
 	<div class="header">
@@ -33,14 +35,19 @@
 			<p th:text="${author}" class="video-author"></p>
 			<p th:text="${duration}" class="video-duration"></p>
 		</div>
-		<form method="post">
-			<button class="button-steal" id="vert">
-				S<br />t<br />e<br />a<br />l
-			</button>
-		</form>
+
+		<button class="button-steal" id="vert" onclick="startDownload()">
+			S<br />t<br />e<br />a<br />l
+		</button>
+
 	</div>
 
 	<div class="divider2"
 		th:classappend="${contentInactive} ? '--disabled'"></div>
+	<div class="progress-bars" th:classappend="${videoNotDownloading} ? '--disabled'">
+		<div class="stealing-bar">
+			<div class="steal-status"></div>
+		</div>
+	</div>
 </body>
 </html>

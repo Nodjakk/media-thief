@@ -2,6 +2,10 @@
 	url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;900&display=swap')
 	;
 
+:root {
+	--progress: 0%;
+}
+
 * {
 	padding: 0px;
 	margin: 0px;
@@ -100,6 +104,25 @@
 	font-family: 'Inter', sans-serif;
 	font-weight: 900;
 	text-transform: uppercase;
+}
+
+.progress-bars {
+	display:flex;
+	justify-content: center;
+}
+
+.stealing-bar {
+	background-color: #D9D9D9;
+	height: 40px;
+	width: 50%;
+}
+
+.steal-status {
+	background-color: #8ED7A2;
+	width: var(--progress);
+	height: 100%;
+	transition-duration: 600ms;
+	transition-property: width;
 }
 
 .divider1 {

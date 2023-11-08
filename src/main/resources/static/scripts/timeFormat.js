@@ -14,25 +14,19 @@ function timeFormat(seconds) {
     var mm = String(minutes);
     var hh = String(hours);
 
-    if (ss.length == 1) {
+    if (ss.length == 1 && minutes > 0) {
         ss = "0" + ss;
     }
-    if (mm.length == 1) {
+    if (mm.length == 1 && hours > 0) {
         mm = "0" + mm;
     }
 
     if (hours == 0) return mm + ":" + ss;
-
-    if (hh.length == 1) {
-        hh = "0" + hh;
-    }
     
     return hh + ":" + mm + ":" + ss;
 
 }
 
-var element = document.getElementsByClassName("video-duration")[0];
-var textContent = element.textContent;
-element.textContent = timeFormat(Number(textContent));
+$(".video-duration").html(timeFormat(Number($(".video-duration").text())));
 
 
