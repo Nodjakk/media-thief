@@ -60,7 +60,6 @@ public class HomeController {
 				@Override
 				public void onProgress(int i) {
 					session.setAttribute("videoProgress", i);
-					
 				}
 
 				@Override
