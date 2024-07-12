@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import jakarta.servlet.http.HttpSession;
 import lombok.SneakyThrows;
 import works.akus.mediathief.objects.Link;
+import works.akus.mediathief.stealer.DownloadManager;
 import works.akus.mediathief.stealer.DownloadTask;
-import works.akus.mediathief.stealer.PlatformManager;
 
 @Controller
 @RequestMapping("/")
@@ -41,24 +41,24 @@ public class HomeController {
 			return "index";
 		Link link = new Link();
 		session.setAttribute("link-url", url);
-		link.setMeta(PlatformManager.i.getMetadata(url));
+		link.setMeta(DownloadManager.i.getMetadata(url, session));
 		model.addAttribute("contentInactive", false);
 		model.addAttribute("url", url);
 		model.addAttribute("duration", link.getMeta().getDuration());
-		model.addAttribute("name", link.getMeta().getName());
-		model.addAttribute("author", "by " + link.getMeta().getAuthor());
+		model.addAttribute("name", link.getMeta().getTitle());
+		model.addAttribute("author", "by " + link.getMeta().getUploader());
 		model.addAttribute("img", link.getMeta().getImage());
 		return "index";
 	}
 
 	@GetMapping(params = "requestType=startDownload")
 	public ResponseEntity<Integer> startDownloadVideo(HttpSession session, Model model) {
-		session.setAttribute("videoProgress", 0);
+		session.setAttribute("videoProgress", 0f);
 		if	(session.getAttribute("downloadTask") == null) {
 			DownloadTask downloadTask = new DownloadTask() {
 
 				@Override
-				public void onProgress(int i) {
+				public void onProgress(float i) {
 					session.setAttribute("videoProgress", i);
 				}
 
@@ -70,9 +70,10 @@ public class HomeController {
 				@Override
 				public void onComplete(File file) {
 					session.setAttribute("downloadedFile", file);
+					session.setAttribute("isVideoReady", true);
 				}
 			};
-			PlatformManager.i.download((String) session.getAttribute("link-url"), downloadTask);
+			DownloadManager.i.download((String) session.getAttribute("link-url"), downloadTask, session);
 			session.setAttribute("downloadTask", downloadTask);
 		}
 
@@ -80,8 +81,9 @@ public class HomeController {
 	}
 	
 	@GetMapping(params = "requestType=getVideoStatus")
-	public ResponseEntity<Integer> getVideoStatus(HttpSession session) {
-		return ResponseEntity.ok().body((Integer) session.getAttribute("videoProgress"));
+	public ResponseEntity<Float> getVideoStatus(HttpSession session) {
+		System.out.println((Float) session.getAttribute("videoProgress"));
+		return ResponseEntity.ok().body((Float) session.getAttribute("videoProgress"));
 	}
 	
 	@GetMapping("/download")
@@ -92,6 +94,7 @@ public class HomeController {
 
 		session.removeAttribute("videoProgress");
 		session.setAttribute("downloadTask", null);
+		session.setAttribute("isVideoReady", false);
 		return ResponseEntity.ok().contentType(MediaType.parseMediaType("video/mp4"))
 				.header(HttpHeaders.CONTENT_DISPOSITION, String.format("attachment; filename=video_%s", file.getName()))
 				.body(videoResource);

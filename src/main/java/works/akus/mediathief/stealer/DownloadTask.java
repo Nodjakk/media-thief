@@ -6,7 +6,7 @@ public interface DownloadTask {
 
     void onFailed(Throwable throwable);
 
-    void onProgress(int i);
+    void onProgress(float i);
 
     void onComplete(File file);
 
